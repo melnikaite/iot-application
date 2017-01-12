@@ -1,0 +1,7 @@
+applications:
+-
+  name: iot-application-ui
+  memory: 64M
+  random-route: true
+  buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+  timeout: 60

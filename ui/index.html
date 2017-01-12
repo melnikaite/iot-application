@@ -1,0 +1,47 @@
+<form id="new-measurement">
+  <label>Measurement A: <input name="a"></label>
+</form>
+
+<button onclick="save()">Save</button>
+
+<h3>Measurements</h3>
+
+<div id="measurements">Loading...</div>
+
+<script>
+  var socket;
+  var init = function () {
+    //var url = 'ws://localhost:3000';
+    var url = 'wss://iot-application-api-server-RANDOM-PHRASE.mybluemix.net';
+
+    socket = new WebSocket(url);
+
+    socket.onclose = function () {
+      init();
+    };
+
+    var measurements = document.getElementById('measurements');
+    measurements.innerHTML = '';
+    socket.onmessage = function (msg) {
+      var measurement = JSON.parse(msg.data);
+      measurements.innerHTML = '<pre>' + JSON.stringify(measurement, null, 2) + '</pre>' + measurements.innerHTML;
+    };
+  };
+  init();
+
+  var save = function () {
+    var form = document.getElementById('new-measurement');
+    var inputs = document.querySelectorAll('#new-measurement input');
+    var measurements = {};
+    for (var i = 0; i < inputs.length; i++) {
+      measurements[inputs[i].name] = inputs[i].value;
+    }
+    try {
+      socket.send(JSON.stringify(measurements));
+    } catch (e) {
+      alert('Failed to save');
+    } finally {
+      form.reset();
+    }
+  };
+</script>

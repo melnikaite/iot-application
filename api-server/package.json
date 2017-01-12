@@ -1,0 +1,17 @@
+{
+  "name": "iot-application-api-server",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "cfenv": "github:cloudfoundry-community/node-cfenv#master",
+    "dotenv": "4.0.0",
+    "mongodb": "2.2.21",
+    "ws": "1.1.1"
+  },
+  "engines": {
+    "node": "6.9.4",
+    "npm": "4.0.5"
+  }
+}

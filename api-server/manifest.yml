@@ -1,0 +1,12 @@
+applications:
+-
+  name: iot-application-api-server
+  memory: 128M
+  random-route: true
+  buildpack: https://github.com/cloudfoundry/buildpack-nodejs.git
+  command: npm start
+  timeout: 60
+  env:
+    NODE_ENV: production
+  services:
+   - mongodb-instance
